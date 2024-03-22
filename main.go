@@ -7,6 +7,7 @@ import (
 	"os"
 	"os/exec"
 	"strings"
+  "log"
 )
 
 // ANSI color codes
@@ -36,7 +37,11 @@ func main() {
 	reader := bufio.NewReader(os.Stdin)
 	fmt.Println(Cyan + banner + Reset)
 	for {
-		fmt.Print(Green + "> " + Reset)
+    path, err := os.Getwd();
+    if err != nil {
+      log.Println(err)
+    }
+		fmt.Print(Green + path + "$ "+ Reset)
 		input, err := reader.ReadString('\n')
 		if err != nil {
 			fmt.Fprintln(os.Stderr, err)
