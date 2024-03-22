@@ -4,11 +4,11 @@ import (
 	"bufio"
 	"errors"
 	"fmt"
+	"log"
 	"os"
 	"os/exec"
+	"os/user"
 	"strings"
-  "log"
-  "os/user"
 )
 
 // ANSI color codes
@@ -24,18 +24,18 @@ const (
 
 func main() {
 	reader := bufio.NewReader(os.Stdin)
-	welcomeMessage();
-  neofetch();
-  for {
-    path, err := os.Getwd();
-    if err != nil {
-      log.Println(err)
-    }
-    user, err := user.Current();
-    if err != nil {
-      log.Fatalf(err.Error());
-    }
-    fmt.Print(Green +user.Username+":"+Blue+ path + "$ "+ Reset)
+	welcomeMessage()
+	neofetch()
+	for {
+		path, err := os.Getwd()
+		if err != nil {
+			log.Println(err)
+		}
+		user, err := user.Current()
+		if err != nil {
+			log.Fatalf(err.Error())
+		}
+		fmt.Print(Green + user.Username + ":" + Blue + path + "$ " + Reset)
 		input, err := reader.ReadString('\n')
 		if err != nil {
 			fmt.Fprintln(os.Stderr, err)
@@ -55,9 +55,9 @@ func execInput(input string) error {
 			return errors.New("path required")
 		}
 		return os.Chdir(args[1])
-  case "":
-    //do nothing
-    return nil
+	case "":
+		//do nothing
+		return nil
 	case "exit":
 		os.Exit(0)
 	}
@@ -70,15 +70,14 @@ func execInput(input string) error {
 }
 
 func neofetch() {
-  cmd :=exec.Command("neofetch");
-  cmd.Stderr = os.Stderr;
-  cmd.Stdout = os.Stdout;
-  cmd.Run();
+	cmd := exec.Command("neofetch")
+	cmd.Stderr = os.Stderr
+	cmd.Stdout = os.Stdout
+	cmd.Run()
 }
 
 func welcomeMessage() {
-    fmt.Println(Cyan+"***************************")
-    fmt.Println("*  Welcome to Go Shell!   *")
-    fmt.Println("***************************"+Reset)
+	fmt.Println(Cyan + "***************************")
+	fmt.Println("*  Welcome to Go Shell!   *")
+	fmt.Println("***************************" + Reset)
 }
-
