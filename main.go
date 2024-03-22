@@ -36,8 +36,9 @@ const banner = `
 `
 func main() {
 	reader := bufio.NewReader(os.Stdin)
-	fmt.Println(Cyan + banner + Reset)
-	for {
+	welcomeMessage();
+  neofetch();
+  for {
     path, err := os.Getwd();
     if err != nil {
       log.Println(err)
@@ -75,5 +76,18 @@ func execInput(input string) error {
 	cmd.Stdout = os.Stdout
 
 	return cmd.Run()
+}
+
+func neofetch() {
+  cmd :=exec.Command("neofetch");
+  cmd.Stderr = os.Stderr;
+  cmd.Stdout = os.Stdout;
+  cmd.Run();
+}
+
+func welcomeMessage() {
+    fmt.Println(Cyan+"***************************")
+    fmt.Println("*  Welcome to Go Shell!   *")
+    fmt.Println("***************************"+Reset)
 }
 
