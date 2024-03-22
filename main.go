@@ -8,6 +8,7 @@ import (
 	"os/exec"
 	"strings"
   "log"
+  "os/user"
 )
 
 // ANSI color codes
@@ -41,7 +42,11 @@ func main() {
     if err != nil {
       log.Println(err)
     }
-		fmt.Print(Green + path + "$ "+ Reset)
+    user, err := user.Current();
+    if err != nil {
+      log.Fatalf(err.Error());
+    }
+    fmt.Print(Green +user.Username+":"+Blue+ path + "$ "+ Reset)
 		input, err := reader.ReadString('\n')
 		if err != nil {
 			fmt.Fprintln(os.Stderr, err)
