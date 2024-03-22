@@ -21,19 +21,7 @@ const (
 	Cyan    = "\033[36m"
 	Reset   = "\033[0m"
 )
-const banner = `
-           _____
-      .---'     '---.
-    .'  "           "  '.
-   /   .  O     O  .   \
-  :                 .  :
-  |    \___/ \___/    |
-  :    |  .   .  |    :
-   \   |         |   /
-    '. \       / .'
-      '._'---'_.'
-         '---'
-`
+
 func main() {
 	reader := bufio.NewReader(os.Stdin)
 	welcomeMessage();
