@@ -55,6 +55,9 @@ func execInput(input string) error {
 			return errors.New("path required")
 		}
 		return os.Chdir(args[1])
+  case "":
+    //do nothing
+    return nil
 	case "exit":
 		os.Exit(0)
 	}
