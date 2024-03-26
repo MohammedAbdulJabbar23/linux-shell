@@ -9,6 +9,8 @@ import (
 	"os/exec"
 	"os/user"
 	"strings"
+  "os/signal"
+  "syscall"
 )
 
 // ANSI color codes
@@ -23,6 +25,9 @@ const (
 )
 
 func main() {
+	interrupt := make(chan os.Signal, 1)
+	signal.Notify(interrupt, os.Interrupt, syscall.SIGTERM)
+
 	reader := bufio.NewReader(os.Stdin)
 	welcomeMessage()
 	neofetch()
